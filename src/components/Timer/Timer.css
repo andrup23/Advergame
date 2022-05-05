@@ -1,0 +1,28 @@
+@font-face {
+    font-family: myGreasy;
+    src: url("/public/Assets/Fonts/GreasySpoonNF.ttf");
+  }
+  
+  @font-face {
+    font-family: myGreasy;
+    src: url("/public/Assets/Fonts/GreasySpoonNF.ttf");
+    font-weight: bold;
+  }
+
+.ui-timer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5em;
+}
+
+.text-title{
+  font-size: 1.5rem;
+}
+
+@media (max-height: 320px) and (orientation: landscape){
+  .text-title {
+    font-size: 1.0rem;
+  }
+}

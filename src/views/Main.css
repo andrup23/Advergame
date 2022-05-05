@@ -9,8 +9,16 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 .interactable-ui{
     pointer-events: auto;
+}
+
+.timer-container{
+    width: auto;
+    margin: 0.5em;
+    margin-top: 0;
 }
