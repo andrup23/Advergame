@@ -30,10 +30,18 @@ AFRAME.registerComponent('interactable-product', {
       
       this.el.addEventListener('collide', function(e) {
         //console.log('Player has collided with ', e.detail.body.el);
+              if(e.detail.body.el.className ==="point3" && firstCol===true){
+                alert ('GOOOOL +3 poit')
+                firstCol = false
+                score=50
+                var event = new CustomEvent("update_data", { "detail": score });
+                document.dispatchEvent(event)
+                restart()
+            }
             if(e.detail.body.el.id ==="goal" && firstCol===true){
                 alert ('GOOOOL')
                 firstCol = false
-                //console.log("col "+e.detail.body.el)
+                //console.log(e.detail.contact)
                 score=50
                 var event = new CustomEvent("update_data", { "detail": score });
                 document.dispatchEvent(event)

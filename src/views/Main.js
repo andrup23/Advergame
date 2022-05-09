@@ -188,7 +188,7 @@ function Main() {
     <div>
         <div id="aframe-main-container">
             {scene_visible &&
-            <Scene id="aframe-scene" physics="debug: false" vr-mode-ui="enabled: false">
+            <Scene id="aframe-scene" physics="debug: true" vr-mode-ui="enabled: false">
                 <a-assets>
                     {/* <img crossOrigin="anonymous" id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
                     <img crossOrigin="anonymous" id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg"/> */}
@@ -200,6 +200,9 @@ function Main() {
                     <img crossOrigin="anonymous" id="ballTexture" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/Crispeta.png"}/>
                     <img crossOrigin="anonymous" id="crispetasBack1" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/CrispetasBack1.png"}/>
                     <img crossOrigin="anonymous" id="crispetasBack2" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/CrispetasBack2.png"}/>
+                    <img crossOrigin="anonymous" id="pointTexture1" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/Point1.png"}/>
+                    <img crossOrigin="anonymous" id="pointTexture2" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/Point2.png"}/>
+                    <img crossOrigin="anonymous" id="pointTexture3" src={process.env.PUBLIC_URL + "/Assets/Images/Escenario/Point3.png"}/>
                 </a-assets>
 
                 {/********************************* CÁMARA Y JUGADOR *********************************/}
@@ -237,20 +240,20 @@ function Main() {
                 {/* PArte Portería */}
                 <Entity primitive="a-box" material="src: #goalTexture; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true"height="8" width="13" depth="0.1" position="0 2.7 -6.8" rotation="0 0 0" />
                 {/* collider */}
-                <Entity id="goal" static-body="shape:box" primitive="a-box" material="visible:false" height="4.1" width="11.8" depth="0.1" position="0 2.5 -6.8" rotation="0 0 0" />
+                <Entity id="goal" static-body="shape:box" primitive="a-box" material="visible:true" height="4.1" width="11.8" depth="0.1" position="0 2.5 -6.8" rotation="0 0 0" />
 
-                <Entity  log id="goalkeeper" /* static-body="shape:box" */ primitive="a-box" material="transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="4" width="4" depth="0.001"
+                <Entity  log id="goalkeeper" /* static-body="shape:box" */ primitive="a-box" material="transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="4" width="4" depth="0.001" scale="1.2 1.2 1"
                   animation="property: position; 
-                  from: -4 2.05 -6.4; 
-                  to: 4 2.05 -6.4; 
+                  from: -4 2.2 -6.4; 
+                  to: 4 2.2 -6.4; 
                   dir:alternate;
-                  dur: 650; 
+                  dur: 500; 
                   loop:true; 
                   easing:linear">
-                    <Entity id="gk">
-                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.6" width="2.1" depth="0.1" position="-0.1 0.2 0.05" material="visible: false"></Entity>
-                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.9" width="1" depth="0.1" position="-0.3 -1.1 0.05" material="visible: false"></Entity>                    
-                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.2" width="1.6" depth="0.1" position="0 1.25 0.05" material="visible: false"></Entity> 
+                    <Entity id="gk" >
+                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.6" width="2.1" depth="0.1" position="-0.1 0.2 0.05" material="visible: false" scale="1.2 1.2 1"></Entity>
+                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.9" width="1" depth="0.1" position="-0.3 -1.1 0.05" material="visible: false" scale="1.2 1.2 1"></Entity>                    
+                      <Entity className="gkcol" primitive="a-box" static-body="shape:box" height="1.2" width="1.6" depth="0.1" position="0 1.25 0.05" material="visible: false" scale="1.2 1.2 1"></Entity> 
                     </Entity>
 
                     
@@ -258,29 +261,24 @@ function Main() {
 
                 <Entity foo id="ball" dynamic-body="shape:sphere; sphereRadius:0.3; mass:0.3; angularDamping:1.0" primitive="a-box" material="src: #ballTexture; transparent:false; alphaTest:0.7; shader:flat" shadow="cast:true; receive:true" height="1.3" width="1.3" depth="0.001" position="-0.07 0.74 -2.794" rotation="0 0 0" />
 
-           
+                {/* Puntos Bonus ****** */}
+                <Entity id="bonus-points" position="0 0 -6.7">
+                  <Entity primitive="a-plane" material="src: #pointTexture1; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="2.5" width="2.5" position="5 1 0" rotation="0 0 0" />
+                  <Entity primitive="a-plane" material="src: #pointTexture1; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="2.5" width="2.5" position="-5 1 0" rotation="0 0 0" />
+                  <Entity primitive="a-plane" material="src: #pointTexture2; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="1.8" width="1.8" position="4 3.3 0" rotation="0 0 0" />
+                  <Entity primitive="a-plane" material="src: #pointTexture2; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="1.8" width="1.8" position="-4 3.3 0" rotation="0 0 0" />
+                  <Entity primitive="a-plane" material="src: #pointTexture3; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="1" width="1" position="5.7 4.4 0" rotation="0 0 0" />
+                  <Entity primitive="a-plane" material="src: #pointTexture3; transparent:true; alphaTest:0.1; shader:flat" shadow="cast:true; receive:true" height="1" width="1" position="-5.7 4.4 0" rotation="0 0 0" />
+                </Entity>
+
+                {/* Colisiones bonus */}
+               {/*  <Entity position="0 0 -6.65">
+                  <Entity  className="point3" static-body="shape:box" primitive="a-box" material="visible:true" height="0.6" width="0.6" depth="0.4" position="5.5 4.15 0" rotation="0 0 0" />
+                </Entity> */}
+                
 
                 {/********************************* ENTORNO *********************************/}
 
-
-                {/********************************* INTERACTIVOS *********************************/}
-                {/* <a-entity class="product-entity">
-                  <a-plane 
-                    class="clickable"
-                    interactable-product
-                    width='0.6' height='0.6'
-                    color="#ccc"
-                    position="-0.34 2.118 -1.40">
-
-                    <a-image 
-                      id="button-producto"
-                      src={process.env.PUBLIC_URL + "logo512.png"}
-                      width='0.5' height='0.5'
-                      position="0 0 0.01">
-                    </a-image>
-                  </a-plane>
-                </a-entity> */}
-                {/********************************* INTERACTIVOS *********************************/}
                 
             </Scene>
             }
